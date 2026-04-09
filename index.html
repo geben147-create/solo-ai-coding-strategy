@@ -1,0 +1,823 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Solo AI 코딩 전담 전략 — 2026.04.09</title>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;700&family=Noto+Serif+KR:wght@400;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#f4f1ea;
+    --ink:#1a1a1a;
+    --paper:#fffdf7;
+    --red:#d4351c;
+    --yellow:#f5b800;
+    --green:#1a7c3e;
+    --line:#1a1a1a;
+    --muted:#6b6b6b;
+  }
+  *{margin:0;padding:0;box-sizing:border-box}
+  html,body{background:var(--bg);color:var(--ink);font-family:'Noto Serif KR',serif;line-height:1.55}
+  body{max-width:1280px;margin:0 auto;padding:0}
+
+  /* MASTHEAD */
+  .masthead{
+    border-bottom:6px double var(--ink);
+    padding:32px 48px 20px;
+    background:var(--paper);
+  }
+  .masthead-top{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-start;
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    letter-spacing:.05em;
+    text-transform:uppercase;
+    margin-bottom:18px;
+    color:var(--muted);
+  }
+  .masthead h1{
+    font-family:'Bricolage Grotesque',sans-serif;
+    font-weight:800;
+    font-size:clamp(48px,7vw,108px);
+    line-height:.92;
+    letter-spacing:-.025em;
+    margin-bottom:12px;
+  }
+  .masthead h1 .accent{color:var(--red);font-style:italic}
+  .masthead .subtitle{
+    font-family:'Noto Serif KR',serif;
+    font-size:18px;
+    font-style:italic;
+    border-top:1px solid var(--ink);
+    padding-top:14px;
+    max-width:780px;
+  }
+
+  /* TL;DR BAR */
+  .tldr{
+    background:var(--ink);
+    color:var(--paper);
+    padding:20px 48px;
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:36px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+  }
+  .tldr-item{border-left:2px solid var(--yellow);padding-left:14px}
+  .tldr-item .label{font-size:10px;text-transform:uppercase;color:var(--yellow);letter-spacing:.1em;margin-bottom:4px}
+  .tldr-item .val{font-size:14px;font-weight:700}
+
+  /* SECTION HEADER */
+  section{padding:48px;background:var(--paper)}
+  section + section{border-top:2px solid var(--ink)}
+  .section-num{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:var(--red);
+    margin-bottom:8px;
+  }
+  .section-title{
+    font-family:'Bricolage Grotesque',sans-serif;
+    font-size:48px;
+    font-weight:800;
+    letter-spacing:-.02em;
+    line-height:1;
+    margin-bottom:8px;
+  }
+  .section-deck{
+    font-family:'Noto Serif KR',serif;
+    font-style:italic;
+    font-size:18px;
+    color:var(--muted);
+    border-bottom:1px solid var(--ink);
+    padding-bottom:24px;
+    margin-bottom:32px;
+    max-width:780px;
+  }
+
+  /* TIER CARDS */
+  .tiers{display:grid;grid-template-columns:repeat(3,1fr);gap:0;border:2px solid var(--ink)}
+  .tier{
+    padding:24px;
+    border-right:2px solid var(--ink);
+    position:relative;
+    min-height:420px;
+  }
+  .tier:last-child{border-right:none}
+  .tier-mark{
+    font-family:'Bricolage Grotesque',sans-serif;
+    font-size:14px;
+    font-weight:800;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    margin-bottom:6px;
+  }
+  .tier-0 .tier-mark{color:var(--green)}
+  .tier-1 .tier-mark{color:var(--yellow);background:var(--ink);padding:2px 8px;display:inline-block}
+  .tier-2 .tier-mark{color:var(--red)}
+  .tier h3{
+    font-family:'Bricolage Grotesque',sans-serif;
+    font-size:32px;
+    font-weight:800;
+    line-height:1;
+    margin:6px 0 16px;
+    letter-spacing:-.01em;
+  }
+  .tier ul{list-style:none;margin-top:12px}
+  .tier li{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    padding:6px 0;
+    border-bottom:1px dotted var(--muted);
+  }
+  .tier li::before{content:"▸ ";color:var(--red);font-weight:700}
+  .tier .desc{
+    font-size:14px;
+    line-height:1.5;
+    color:var(--ink);
+    margin-bottom:10px;
+  }
+
+  /* SKIP BANNER */
+  .skip-banner{
+    margin-top:24px;
+    background:var(--ink);
+    color:var(--paper);
+    padding:20px 24px;
+    border:2px solid var(--ink);
+  }
+  .skip-banner h4{
+    font-family:'Bricolage Grotesque',sans-serif;
+    font-size:14px;
+    color:var(--red);
+    text-transform:uppercase;
+    letter-spacing:.15em;
+    margin-bottom:10px;
+  }
+  .skip-banner ul{list-style:none;display:flex;flex-wrap:wrap;gap:8px}
+  .skip-banner li{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    background:transparent;
+    border:1px solid var(--paper);
+    padding:5px 10px;
+  }
+
+  /* MYTH BUSTER */
+  .myth{
+    background:var(--bg);
+    border:3px solid var(--red);
+    padding:28px;
+    margin-top:32px;
+    position:relative;
+  }
+  .myth::before{
+    content:"⚠ MYTH BUSTER";
+    position:absolute;
+    top:-12px;
+    left:24px;
+    background:var(--red);
+    color:var(--paper);
+    padding:4px 14px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    letter-spacing:.15em;
+    font-weight:700;
+  }
+  .myth-row{
+    display:grid;
+    grid-template-columns:1fr 2fr;
+    gap:20px;
+    padding:14px 0;
+    border-bottom:1px dotted var(--muted);
+  }
+  .myth-row:last-child{border-bottom:none}
+  .myth-claim{
+    font-family:'Bricolage Grotesque',sans-serif;
+    font-size:14px;
+    font-weight:700;
+    color:var(--ink);
+  }
+  .myth-claim::before{content:"✗ ";color:var(--red)}
+  .myth-truth{
+    font-size:14px;
+    font-style:italic;
+    color:var(--ink);
+  }
+
+  /* HEAD-TO-HEAD */
+  .h2h-wrap{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:0;
+    border:2px solid var(--ink);
+    margin-top:24px;
+  }
+  .h2h-side{padding:32px;position:relative}
+  .h2h-red{background:linear-gradient(135deg,#fff 0%,#ffe5e0 100%);border-right:2px solid var(--ink)}
+  .h2h-yellow{background:linear-gradient(135deg,#fff 0%,#fff5d0 100%)}
+  .h2h-emoji{font-size:64px;line-height:1;margin-bottom:8px}
+  .h2h-side h3{
+    font-family:'Bricolage Grotesque',sans-serif;
+    font-size:36px;
+    font-weight:800;
+    letter-spacing:-.02em;
+    line-height:1;
+    margin-bottom:6px;
+  }
+  .h2h-side .creator{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    color:var(--muted);
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    margin-bottom:18px;
+    border-bottom:1px solid var(--ink);
+    padding-bottom:10px;
+  }
+  .h2h-side .summary{
+    font-size:14px;
+    line-height:1.55;
+    margin-bottom:18px;
+  }
+  .h2h-pro,.h2h-con{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    margin:4px 0;
+    line-height:1.5;
+  }
+  .h2h-pro::before{content:"+ ";color:var(--green);font-weight:700}
+  .h2h-con::before{content:"− ";color:var(--red);font-weight:700}
+  .h2h-score{
+    margin-top:18px;
+    font-family:'Bricolage Grotesque',sans-serif;
+    font-size:64px;
+    font-weight:800;
+    line-height:1;
+    border-top:2px solid var(--ink);
+    padding-top:14px;
+  }
+  .h2h-red .h2h-score{color:var(--red)}
+  .h2h-yellow .h2h-score{color:#b58900}
+
+  /* WINNER BANNER */
+  .winner{
+    margin-top:0;
+    background:var(--ink);
+    color:var(--paper);
+    padding:48px;
+    text-align:center;
+    border:2px solid var(--ink);
+    border-top:none;
+  }
+  .winner .label{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    letter-spacing:.3em;
+    color:var(--yellow);
+    margin-bottom:14px;
+  }
+  .winner h2{
+    font-family:'Bricolage Grotesque',sans-serif;
+    font-size:48px;
+    font-weight:800;
+    line-height:1;
+    margin-bottom:14px;
+    letter-spacing:-.02em;
+  }
+  .winner .formula{
+    font-family:'JetBrains Mono',monospace;
+    font-size:14px;
+    color:var(--paper);
+    line-height:1.8;
+  }
+  .winner .formula b{color:var(--yellow)}
+  .winner-score{
+    font-family:'Bricolage Grotesque',sans-serif;
+    font-size:96px;
+    font-weight:800;
+    color:var(--yellow);
+    line-height:1;
+    margin-top:18px;
+  }
+
+  /* COMPARE TABLE */
+  table.compare{
+    width:100%;
+    border-collapse:collapse;
+    margin-top:24px;
+    font-size:13px;
+  }
+  table.compare th,table.compare td{
+    border:1px solid var(--ink);
+    padding:10px 14px;
+    text-align:left;
+    vertical-align:top;
+  }
+  table.compare thead th{
+    background:var(--ink);
+    color:var(--paper);
+    font-family:'Bricolage Grotesque',sans-serif;
+    font-weight:800;
+    text-transform:uppercase;
+    font-size:11px;
+    letter-spacing:.1em;
+  }
+  table.compare tbody td:first-child{
+    font-family:'Bricolage Grotesque',sans-serif;
+    font-weight:700;
+    background:var(--bg);
+    width:24%;
+  }
+  td.red{background:#ffe5e0}
+  td.yellow{background:#fff5d0}
+
+  /* WORKFLOW DIAGRAM */
+  .flow{
+    margin-top:24px;
+    display:grid;
+    grid-template-columns:repeat(5,1fr);
+    gap:8px;
+    counter-reset:phase;
+  }
+  .phase{
+    background:var(--paper);
+    border:2px solid var(--ink);
+    padding:20px 16px;
+    position:relative;
+    counter-increment:phase;
+  }
+  .phase::before{
+    content:"P" counter(phase);
+    position:absolute;
+    top:-12px;
+    left:14px;
+    background:var(--ink);
+    color:var(--yellow);
+    padding:3px 10px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    font-weight:700;
+  }
+  .phase h4{
+    font-family:'Bricolage Grotesque',sans-serif;
+    font-size:18px;
+    font-weight:800;
+    margin:6px 0 8px;
+    letter-spacing:-.01em;
+  }
+  .phase .time{
+    font-family:'JetBrains Mono',monospace;
+    font-size:10px;
+    color:var(--red);
+    margin-bottom:8px;
+  }
+  .phase ul{list-style:none;font-size:11px;line-height:1.5}
+  .phase li{padding:2px 0}
+  .phase li::before{content:"▸ ";color:var(--red)}
+
+  /* REPO RANKING */
+  .repos{margin-top:24px}
+  .repo-row{
+    display:grid;
+    grid-template-columns:60px 1fr 2fr;
+    gap:18px;
+    padding:18px 0;
+    border-bottom:1px solid var(--ink);
+    align-items:center;
+  }
+  .repo-rank{
+    font-family:'Bricolage Grotesque',sans-serif;
+    font-size:48px;
+    font-weight:800;
+    line-height:.9;
+    color:var(--red);
+  }
+  .repo-name{
+    font-family:'JetBrains Mono',monospace;
+    font-size:14px;
+    font-weight:700;
+  }
+  .repo-name a{color:var(--ink);text-decoration:underline;text-decoration-style:dotted}
+  .repo-why{
+    font-size:13px;
+    line-height:1.55;
+    color:var(--ink);
+  }
+
+  /* INSTALL */
+  .install{margin-top:24px}
+  .install pre{
+    background:var(--ink);
+    color:var(--paper);
+    padding:20px 24px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    line-height:1.6;
+    overflow-x:auto;
+    margin:14px 0;
+    border-left:6px solid var(--yellow);
+  }
+  .install pre .comment{color:#888}
+  .install pre .keyword{color:var(--yellow);font-weight:700}
+  .step{
+    font-family:'Bricolage Grotesque',sans-serif;
+    font-size:20px;
+    font-weight:800;
+    margin-top:24px;
+    color:var(--ink);
+    border-bottom:2px solid var(--red);
+    padding-bottom:6px;
+    display:inline-block;
+  }
+  .step .num{color:var(--red);margin-right:8px}
+
+  /* FOOTER */
+  footer{
+    background:var(--ink);
+    color:var(--paper);
+    padding:32px 48px;
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px;
+    line-height:1.7;
+  }
+  footer a{color:var(--yellow);text-decoration:none}
+  footer .verify{
+    border-top:1px dashed var(--paper);
+    padding-top:14px;
+    margin-top:14px;
+    color:var(--bg);
+  }
+
+  @media(max-width:900px){
+    .tiers,.h2h-wrap,.flow,.tldr{grid-template-columns:1fr}
+    .tier,.h2h-side{border-right:none;border-bottom:2px solid var(--ink)}
+    .masthead h1{font-size:56px}
+    .section-title{font-size:36px}
+    .repo-row{grid-template-columns:1fr}
+    section{padding:32px 24px}
+    .masthead{padding:24px}
+  }
+</style>
+</head>
+<body>
+
+<!-- MASTHEAD -->
+<div class="masthead">
+  <div class="masthead-top">
+    <div>VOL.1 · ISSUE 1 · APRIL 9, 2026 · SEOUL EDITION</div>
+    <div>★ FOR Z, SOLO HUMAN ★ COMPLIANCE SAAS DESK</div>
+  </div>
+  <h1>Solo AI 코딩 전담 <span class="accent">전략</span></h1>
+  <div class="subtitle">
+    혼자 일하는 개발자를 위한 2026년 4월 검증판. PAL MCP 교차검증, gpt-5.2-pro 8/10 confidence, 그리고 brutal honesty.
+  </div>
+</div>
+
+<!-- TL;DR -->
+<div class="tldr">
+  <div class="tldr-item">
+    <div class="label">두 방법론 승자</div>
+    <div class="val">🟡 Kent Beck 7 vs 🔴 6-Council 4</div>
+  </div>
+  <div class="tldr-item">
+    <div class="label">진짜 답</div>
+    <div class="val">하이브리드 (BMAD + Beck + CONTROL-MAP)</div>
+  </div>
+  <div class="tldr-item">
+    <div class="label">반드시 깔 것</div>
+    <div class="val">CLAUDE.md + spec.md + plan.md</div>
+  </div>
+  <div class="tldr-item">
+    <div class="label">버릴 미신</div>
+    <div class="val">Karpathy/Mythos/Gemma5 = 거짓</div>
+  </div>
+</div>
+
+<!-- SECTION 1: MD FILES -->
+<section>
+  <div class="section-num">PART ONE / SEVEN FILES</div>
+  <h2 class="section-title">단 7개 파일이면 충분하다</h2>
+  <p class="section-deck">"agent.md, spec.md, plan.md, ARCHITECTURE.md, ROADMAP.md, SECURITY.md, DECISIONS.md..." — 다 만들 필요 없다. 솔로엔 최소 3개, 컴플라이언스 SaaS엔 최대 7개. 그 이상은 ceremony.</p>
+
+  <div class="tiers">
+    <div class="tier tier-0">
+      <div class="tier-mark">▲ TIER 0 · 필수</div>
+      <h3>The Holy Three</h3>
+      <p class="desc">없으면 아무것도 시작 못 한다. 컴플라이언스 SaaS든 토이 프로젝트든 똑같다.</p>
+      <ul>
+        <li>CLAUDE.md (≤200줄)</li>
+        <li>spec.md (Goals + Non-goals)</li>
+        <li>plan.md (체크박스)</li>
+      </ul>
+      <p class="desc" style="margin-top:14px;font-style:italic;font-size:12px">CLAUDE.md ↔ AGENTS.md 둘 다 만들지 마라. 권한 분열. 하나만.</p>
+    </div>
+
+    <div class="tier tier-1">
+      <div class="tier-mark">★ TIER 1 · 강력 추천</div>
+      <h3>The Force Multipliers</h3>
+      <p class="desc">컴플라이언스 SaaS면 이 셋이 audit 통과의 핵심. 일반 솔로 프로젝트면 README/DECISIONS만.</p>
+      <ul>
+        <li>README.md (사람용)</li>
+        <li>DECISIONS.md (ADR)</li>
+        <li>CONTROL-MAP.md ⭐</li>
+      </ul>
+      <p class="desc" style="margin-top:14px;font-style:italic;font-size:12px">CONTROL-MAP.md = gpt-5.2-pro의 #1 권고. 요구사항→통제→증거→테스트 매트릭스.</p>
+    </div>
+
+    <div class="tier tier-2">
+      <div class="tier-mark">○ TIER 2 · 트리거 시</div>
+      <h3>If, And Only If…</h3>
+      <p class="desc">상황 충족할 때만. Z의 컴플라이언스 SaaS는 SECURITY.md만 추가.</p>
+      <ul>
+        <li>SECURITY.md (1-2 페이지)</li>
+      </ul>
+      <p class="desc" style="margin-top:14px;font-style:italic;font-size:12px">절대 산문으로 쓰지 마라. 운영 redline만 — "secret 처리, 데이터 분류, auth invariant".</p>
+    </div>
+  </div>
+
+  <div class="skip-banner">
+    <h4>✗ 만들지 마라 (Solo Anti-Patterns)</h4>
+    <ul>
+      <li>ROADMAP.md → GitHub Issues 가 더 좋다</li>
+      <li>ARCHITECTURE.md → 시스템이 복잡해지기 전엔 불필요</li>
+      <li>AGENTS.md (CLAUDE.md 있을 때) → 권한 분열</li>
+      <li>CONTRIBUTING.md → 외부 기여자 있을 때만</li>
+      <li>CHANGELOG.md → git log + 태그로 충분</li>
+    </ul>
+  </div>
+
+  <div class="myth">
+    <div class="myth-row">
+      <div class="myth-claim">"Karpathy가 agent.md/spec.md 템플릿 공개"</div>
+      <div class="myth-truth">거짓. Karpathy는 그런 거 없다. 그는 "vibe coding" 단어를 만들었고(2025.02), <code>autoresearch</code> 리포에서 program.md ratchet 패턴을 보였다. 그게 전부. nanoGPT/llm.c는 minimal README + 깔끔한 코드 스타일이다.</div>
+    </div>
+    <div class="myth-row">
+      <div class="myth-claim">"Mythos 모델 방법론"</div>
+      <div class="myth-truth">존재하지 않는다. 알려진 방법론 카탈로그에 없다. 음성인식 garble로 추정. 만약 진짜 출처를 안다면 알려달라.</div>
+    </div>
+    <div class="myth-row">
+      <div class="myth-claim">"Gemma5 mythos 로직"</div>
+      <div class="myth-truth">존재하지 않는다. Gemma는 Google의 오픈 모델이고 5는 2026.04 기준 없다. 코딩 방법론으로 발표된 적도 없다.</div>
+    </div>
+    <div class="myth-row">
+      <div class="myth-claim">"6명 모델 만장일치 합의가 진실을 보장한다"</div>
+      <div class="myth-truth">연극이다. 모델들이 비슷한 데이터로 훈련돼서 가짜로 동의한다. 진짜 가치는 "structured disagreement (1 for + 1 against)" 단일 라운드. — gpt-5.2-pro 검증</div>
+    </div>
+    <div class="myth-row">
+      <div class="myth-claim">"Ultrathink / UltraPlan"</div>
+      <div class="myth-truth">✓ <b>실제 있다.</b> Claude Code 커뮤니티 prompt 패턴. <code>ultrathink</code> = max thinking budget 키워드. 단, 깊이를 늘려줄 뿐 진실성을 보장하진 않는다.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: HEAD TO HEAD -->
+<section>
+  <div class="section-num">PART TWO / HEAD TO HEAD</div>
+  <h2 class="section-title">🔴 vs 🟡 — 정면 비교</h2>
+  <p class="section-deck">한쪽은 한국 개발 세미나에서 나온 6-agent council. 다른 쪽은 TDD 창시자 Kent Beck 본인이 자기 GitHub 리포에서 운영 중인 단일 CLAUDE.md. 27년 vs 1년 미만. 토큰 폭탄 vs 미니멀.</p>
+
+  <div class="h2h-wrap">
+    <div class="h2h-side h2h-red">
+      <div class="h2h-emoji">🔴</div>
+      <h3>METHOD A</h3>
+      <div class="creator">Tech Spec Council · Jinhyung Kim, 2025</div>
+      <p class="summary">6명(GPT5 Pro + Gemini DeepThink + Claude Code + Codex + Zen MCP + 사람)이 만장일치할 때까지 토론. tech spec 1개에 약 2일, plan 3시간. heavy multi-agent ritual.</p>
+      <div class="h2h-pro">모델 다양성으로 blind spot 잡기 시도</div>
+      <div class="h2h-pro">Heavy spec phase로 rework 방지</div>
+      <div class="h2h-pro">새 도메인 탐색에 좋음</div>
+      <div class="h2h-con">"모두 합의" = 가짜 동의 (훈련 데이터 비슷)</div>
+      <div class="h2h-con">2일은 솔로 개발자에게 압도적</div>
+      <div class="h2h-con">Zen MCP 토론이 수렴 안 하고 루핑</div>
+      <div class="h2h-con">토큰 비용 폭탄 (6 모델 호출)</div>
+      <div class="h2h-score">30<span style="font-size:24px;color:var(--muted)">/100</span></div>
+    </div>
+
+    <div class="h2h-side h2h-yellow">
+      <div class="h2h-emoji">🟡</div>
+      <h3>METHOD B</h3>
+      <div class="creator">Kent Beck CLAUDE.md · BPlusTree3, 2024+</div>
+      <p class="summary">단일 CLAUDE.md 파일. multi-agent 없음. TDD 절대 준수 (Red→Green→Refactor) + Tidy First (구조/동작 변경 분리) + atomic commits + commit discipline. 27년 evidence.</p>
+      <div class="h2h-pro">TDD/XP 창시자 본인이 검증, 27년 evidence</div>
+      <div class="h2h-pro">인지 부담 0 (룰 한 번만 작성)</div>
+      <div class="h2h-pro">Atomic commit으로 git bisect 가능</div>
+      <div class="h2h-pro">Tidy First로 reviewable diff</div>
+      <div class="h2h-con">"무엇을 만들지" 답 없음 (spec 가정)</div>
+      <div class="h2h-con">UI/integration/exploratory 코드에 약함</div>
+      <div class="h2h-con">BPlusTree3 = 알고리즘 toy, SaaS 아님</div>
+      <div class="h2h-con">단일 모델 의존 (cross-validation 없음)</div>
+      <div class="h2h-score">60<span style="font-size:24px;color:var(--muted)">/100</span></div>
+    </div>
+  </div>
+
+  <div class="winner">
+    <div class="label">★ THE ACTUAL ANSWER ★</div>
+    <h2>🏆 하이브리드</h2>
+    <div class="formula">
+      <b>BMAD</b> (spec phase) <span style="color:#888">+</span>
+      <b>Kent Beck CLAUDE.md</b> (execution) <span style="color:#888">+</span>
+      <b>CONTROL-MAP.md</b> (compliance)
+    </div>
+    <div class="winner-score">90<span style="font-size:36px;color:var(--paper)">/100</span></div>
+    <p style="font-style:italic;font-size:13px;margin-top:18px;max-width:680px;margin-left:auto;margin-right:auto;color:var(--bg)">
+      방법론 A의 진짜 가치는 모델 다양성이 아니라 "spec을 진지하게 만드는 ritual". 그건 BMAD가 더 잘 한다.
+      방법론 B의 진짜 가치는 TDD 순수성이 아니라 "atomic commit + drift control".
+      컴플라이언스 SaaS는 둘 다에 없는 CONTROL-MAP.md가 필요하다.
+    </p>
+  </div>
+
+  <h3 style="margin-top:48px;font-family:'Bricolage Grotesque',sans-serif;font-size:24px;font-weight:800">상세 비교표</h3>
+  <table class="compare">
+    <thead>
+      <tr><th>항목</th><th>🔴 METHOD A</th><th>🟡 METHOD B</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>창시자</td><td class="red">Jinhyung Kim (2025 한국 세미나)</td><td class="yellow">Kent Beck (TDD/XP 창시자, 1999~)</td></tr>
+      <tr><td>검증된 기간</td><td class="red">1년 미만</td><td class="yellow">27년 (TDD 자체)</td></tr>
+      <tr><td>spec 1개당 시간</td><td class="red">~2일</td><td class="yellow">0 (룰 1회 작성, 매번 재사용)</td></tr>
+      <tr><td>토큰 비용</td><td class="red">매우 높음 (6 모델)</td><td class="yellow">낮음 (1 모델)</td></tr>
+      <tr><td>"무엇을 만들지" 해결?</td><td class="red">✅ Yes</td><td class="yellow">❌ No (spec 이미 있다고 가정)</td></tr>
+      <tr><td>"어떻게 만들지" 해결?</td><td class="red">⚠️ 약함</td><td class="yellow">✅✅ 강력 (TDD + Tidy First)</td></tr>
+      <tr><td>컴플라이언스 트레이서빌리티</td><td class="red">⚠️ 회의록 의존</td><td class="yellow">✅ atomic commit으로 bisect</td></tr>
+      <tr><td>솔로 1인 지속가능성</td><td class="red">4/10</td><td class="yellow">7/10</td></tr>
+      <tr><td>2026.04 실전 점수</td><td class="red"><b>30/100</b></td><td class="yellow"><b>60/100</b></td></tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- SECTION 3: WORKFLOW -->
+<section>
+  <div class="section-num">PART THREE / WORKFLOW</div>
+  <h2 class="section-title">5단계 실전 흐름</h2>
+  <p class="section-deck">이론이 아니라 복붙 가능한 단계. 컴플라이언스 SaaS 1인 개발 기준.</p>
+
+  <div class="flow">
+    <div class="phase">
+      <h4>SPEC</h4>
+      <div class="time">~3 시간</div>
+      <ul>
+        <li>BMAD brainstorming (1hr)</li>
+        <li>Claude → spec.md draft</li>
+        <li>PAL consensus 1 라운드</li>
+        <li>CONTROL-MAP.md v0</li>
+        <li>Z 승인</li>
+      </ul>
+    </div>
+    <div class="phase">
+      <h4>PLAN</h4>
+      <div class="time">~1 시간</div>
+      <ul>
+        <li>Claude → plan.md 분해</li>
+        <li>각 task 2-5분</li>
+        <li>각 task DoD 명시</li>
+        <li>Z 검토</li>
+      </ul>
+    </div>
+    <div class="phase">
+      <h4>BUILD</h4>
+      <div class="time">세션 루프</div>
+      <ul>
+        <li>"go" → next test</li>
+        <li>RED → GREEN → REFACTOR</li>
+        <li>atomic commit</li>
+        <li>plan.md [x]</li>
+        <li>drift = STOP</li>
+      </ul>
+    </div>
+    <div class="phase">
+      <h4>VERIFY</h4>
+      <div class="time">CI 자동</div>
+      <ul>
+        <li>tests + lint + secret scan</li>
+        <li>L3는 PAL codereview</li>
+        <li>CONTROL-MAP evidence 검증</li>
+        <li>머지</li>
+      </ul>
+    </div>
+    <div class="phase">
+      <h4>EVOLVE</h4>
+      <div class="time">~5 분</div>
+      <ul>
+        <li>post-ship 회고</li>
+        <li>DECISIONS.md 업데이트</li>
+        <li>CONTROL-MAP drift 점검</li>
+        <li>다음 P1</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: REPOS -->
+<section>
+  <div class="section-num">PART FOUR / TOP REPOS</div>
+  <h2 class="section-title">참고할 GitHub 7선</h2>
+  <p class="section-deck">2026.04 검증. 좋은 순. 모두 클릭해서 직접 확인 권장.</p>
+
+  <div class="repos">
+    <div class="repo-row">
+      <div class="repo-rank">1</div>
+      <div class="repo-name"><a href="https://github.com/shanraisshan/claude-code-best-practice">shanraisshan / claude-code-best-practice</a></div>
+      <div class="repo-why">v2.1.87 (2026.03.30) 활발히 유지보수. "🚫👶 no babying" 실전 노하우. <i>"grill me on these changes and don't make a PR until I pass your test"</i></div>
+    </div>
+    <div class="repo-row">
+      <div class="repo-rank">2</div>
+      <div class="repo-name"><a href="https://github.com/KentBeck/BPlusTree3">KentBeck / BPlusTree3</a></div>
+      <div class="repo-why">TDD/XP 창시자 본인의 CLAUDE.md 원본. Kent Beck이 직접 운영. 단, 알고리즘 toy 한계 인지.</div>
+    </div>
+    <div class="repo-row">
+      <div class="repo-rank">3</div>
+      <div class="repo-name"><a href="https://github.com/github/spec-kit">github / spec-kit</a></div>
+      <div class="repo-why">GitHub 공식 SDD 도구. Z 이미 설치됨. 9개 명령어 (constitution, specify, plan, tasks...).</div>
+    </div>
+    <div class="repo-row">
+      <div class="repo-rank">4</div>
+      <div class="repo-name"><a href="https://github.com/bmadcode/BMAD-METHOD">bmadcode / BMAD-METHOD</a></div>
+      <div class="repo-why">"5-20명 팀용"이라는 평가 재고 필요. ranthebuilder.cloud 실전 후기: "real users + external integrations + security surface 있는 substantial project엔 BMAD" — Z 정확히 해당.</div>
+    </div>
+    <div class="repo-row">
+      <div class="repo-rank">5</div>
+      <div class="repo-name"><a href="https://github.com/obra/superpowers">obra / superpowers</a></div>
+      <div class="repo-why">Enforced gates. brainstorming → writing-plans → TDD skill. 솔로엔 살짝 무거움.</div>
+    </div>
+    <div class="repo-row">
+      <div class="repo-rank">6</div>
+      <div class="repo-name"><a href="https://github.com/affaan-m/everything-claude-code">affaan-m / everything-claude-code</a></div>
+      <div class="repo-why">Anthropic 해커톤 우승작. 28 agents / 119 skills. 통째로 깔지 말고 핵심만 harvest.</div>
+    </div>
+    <div class="repo-row">
+      <div class="repo-rank">7</div>
+      <div class="repo-name"><a href="https://github.com/agentsmd/agents.md">agentsmd / agents.md</a></div>
+      <div class="repo-why">AGENTS.md 표준. OpenAI/Sourcegraph/Cursor 채택. CLAUDE.md 안 쓸 거면 이거.</div>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 5: INSTALL -->
+<section>
+  <div class="section-num">PART FIVE / INSTALL</div>
+  <h2 class="section-title">지금 당장 복붙</h2>
+  <p class="section-deck">Z의 환경 (Windows + Claude Code v2.1.0+ + spec-kit + PAL MCP v9.8.2 이미 있음) 기준.</p>
+
+  <div class="install">
+    <div class="step"><span class="num">01</span>BMAD-METHOD 설치</div>
+    <pre><span class="comment"># 공식 npm 방식 — 가장 깔끔</span>
+<span class="keyword">npx</span> bmad-method install
+
+<span class="comment"># 설치 후 Claude Code에서</span>
+<span class="keyword">claude</span>
+&gt; /BMad:agents:analyst   <span class="comment"># brainstorming 시작</span></pre>
+
+    <div class="step"><span class="num">02</span>프로젝트 셋업 + 7-file scaffold</div>
+    <pre><span class="keyword">mkdir</span> my-compliance-saas &amp;&amp; <span class="keyword">cd</span> my-compliance-saas
+<span class="keyword">git</span> init
+
+<span class="keyword">mkdir</span> -p docs/spec docs/control-matrix docs/decisions .planning
+<span class="keyword">touch</span> CLAUDE.md README.md SECURITY.md
+<span class="keyword">touch</span> docs/spec/v1.md
+<span class="keyword">touch</span> docs/control-matrix/v0.md
+<span class="keyword">touch</span> docs/decisions/ADR-001.md
+<span class="keyword">touch</span> .planning/plan.md</pre>
+
+    <div class="step"><span class="num">03</span>CLAUDE.md 초기 골격 (Kent Beck + drift control)</div>
+    <pre><span class="comment"># STRATEGY.md 의 Step 4 섹션에 전체 cat &lt;&lt; EOF 스크립트 있음</span>
+<span class="comment"># 핵심: TDD 룰 + Tidy First + drift control + 100줄/commit + 200줄 이하 유지</span>
+<span class="comment"># 컴플라이언스 SaaS면 아래 boundary도 추가:</span>
+<span class="comment">#  - 고객 PII 외부 모델 송신 금지</span>
+<span class="comment">#  - secrets는 .env, hardcode 금지</span>
+<span class="comment">#  - 모든 sensitive action은 audit_log 기록</span></pre>
+
+    <div class="step"><span class="num">04</span>첫 commit + PAL 검증</div>
+    <pre><span class="keyword">git</span> add .
+<span class="keyword">git</span> commit -m <span style="color:#a6e22e">"chore: bootstrap CLAUDE.md + 7-file scaffold"</span>
+
+<span class="comment"># Claude Code에서</span>
+<span class="keyword">claude</span>
+&gt; pal:thinkdeep <span style="color:#a6e22e">"이 spec.md 검토"</span> model=gpt-5.2-pro
+&gt; pal:consensus <span style="color:#a6e22e">"이 결정 평가"</span> models=[gpt-5.2-pro:for, gpt-5.2:against]</pre>
+
+    <div class="step"><span class="num">05</span>5가지 즉시 액션</div>
+    <pre><span class="comment">1. npx bmad-method install                      (5분)</span>
+<span class="comment">2. 위 Step 2 스크립트로 7-file scaffold          (5분)</span>
+<span class="comment">3. CLAUDE.md의 &lt;채워라&gt; 부분 본인 stack으로 수정 (10분)</span>
+<span class="comment">4. 첫 BMAD brainstorming 1시간 → user flows 발굴 (60분)</span>
+<span class="comment">5. spec.md → CONTROL-MAP.md v0 → PAL 1 라운드   (60분)</span></pre>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div><b>SOLO AI 코딩 전담 전략 v1.0</b> · 작성: Claude Opus 4.6 (Anthropic)</div>
+  <div>모델 검증: PAL MCP v9.8.2 · gpt-5.2-pro (thinkdeep, max thinking) + gpt-5.2-pro (consensus, for) + web search 2026.04</div>
+  <div class="verify">
+    <b>한계 인정:</b> Gemini 3 Pro Preview 적대 검증은 free tier quota 초과로 실패 — cross-vendor adversarial은 다음 라운드에. ★ 모든 GitHub stars는 시점 의존, 직접 클릭 권장. ★ "최고"는 항상 컨텍스트 의존 — Z의 컴플라이언스 SaaS 가정이 바뀌면 권고도 바뀐다. ★ 거짓으로 판명된 출처(Karpathy agent.md / Mythos / Gemma5)는 본문에 명시.
+  </div>
+  <div style="margin-top:14px">2026-04-09 · Seoul Edition · END</div>
+</footer>
+
+</body>
+</html>
