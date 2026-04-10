@@ -17,7 +17,8 @@
     --muted:#6b6b6b;
   }
   *{margin:0;padding:0;box-sizing:border-box}
-  html,body{background:var(--bg);color:var(--ink);font-family:'Noto Serif KR',serif;line-height:1.55}
+  /* font-synthesis:none prevents blurry faux-italic on Korean fonts */
+  html,body{background:var(--bg);color:var(--ink);font-family:'Noto Serif KR',serif;line-height:1.55;font-synthesis:none}
   body{max-width:1280px;margin:0 auto;padding:0}
 
   /* MASTHEAD */
@@ -45,11 +46,11 @@
     letter-spacing:-.025em;
     margin-bottom:12px;
   }
-  .masthead h1 .accent{color:var(--red);font-style:italic}
+  /* Removed font-style:italic — Bricolage Grotesque has no Korean italic, causing faux-italic blur */
+  .masthead h1 .accent{color:var(--red)}
   .masthead .subtitle{
     font-family:'Noto Serif KR',serif;
     font-size:18px;
-    font-style:italic;
     border-top:1px solid var(--ink);
     padding-top:14px;
     max-width:780px;
@@ -91,7 +92,6 @@
   }
   .section-deck{
     font-family:'Noto Serif KR',serif;
-    font-style:italic;
     font-size:18px;
     color:var(--muted);
     border-bottom:1px solid var(--ink);
@@ -204,9 +204,9 @@
     color:var(--ink);
   }
   .myth-claim::before{content:"✗ ";color:var(--red)}
+  /* Removed font-style:italic — Noto Serif KR has no italic variant */
   .myth-truth{
     font-size:14px;
-    font-style:italic;
     color:var(--ink);
   }
 
@@ -515,7 +515,7 @@
         <li>spec.md (Goals + Non-goals)</li>
         <li>plan.md (체크박스)</li>
       </ul>
-      <p class="desc" style="margin-top:14px;font-style:italic;font-size:12px">CLAUDE.md ↔ AGENTS.md 둘 다 만들지 마라. 권한 분열. 하나만.</p>
+      <p class="desc" style="margin-top:14px;font-size:12px;color:var(--muted)">CLAUDE.md ↔ AGENTS.md 둘 다 만들지 마라. 권한 분열. 하나만.</p>
     </div>
 
     <div class="tier tier-1">
@@ -527,7 +527,7 @@
         <li>DECISIONS.md (ADR)</li>
         <li>CONTROL-MAP.md ⭐</li>
       </ul>
-      <p class="desc" style="margin-top:14px;font-style:italic;font-size:12px">CONTROL-MAP.md = gpt-5.2-pro의 #1 권고. 요구사항→통제→증거→테스트 매트릭스.</p>
+      <p class="desc" style="margin-top:14px;font-size:12px;color:var(--muted)">CONTROL-MAP.md = gpt-5.2-pro의 #1 권고. 요구사항→통제→증거→테스트 매트릭스.</p>
     </div>
 
     <div class="tier tier-2">
@@ -537,7 +537,7 @@
       <ul>
         <li>SECURITY.md (1-2 페이지)</li>
       </ul>
-      <p class="desc" style="margin-top:14px;font-style:italic;font-size:12px">절대 산문으로 쓰지 마라. 운영 redline만 — "secret 처리, 데이터 분류, auth invariant".</p>
+      <p class="desc" style="margin-top:14px;font-size:12px;color:var(--muted)">절대 산문으로 쓰지 마라. 운영 redline만 — "secret 처리, 데이터 분류, auth invariant".</p>
     </div>
   </div>
 
@@ -624,7 +624,7 @@
       <b>CONTROL-MAP.md</b> (compliance)
     </div>
     <div class="winner-score">90<span style="font-size:36px;color:var(--paper)">/100</span></div>
-    <p style="font-style:italic;font-size:13px;margin-top:18px;max-width:680px;margin-left:auto;margin-right:auto;color:var(--bg)">
+    <p style="font-size:13px;margin-top:18px;max-width:680px;margin-left:auto;margin-right:auto;color:var(--bg)">
       방법론 A의 진짜 가치는 모델 다양성이 아니라 "spec을 진지하게 만드는 ritual". 그건 BMAD가 더 잘 한다.
       방법론 B의 진짜 가치는 TDD 순수성이 아니라 "atomic commit + drift control".
       컴플라이언스 SaaS는 둘 다에 없는 CONTROL-MAP.md가 필요하다.
